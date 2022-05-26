@@ -1,0 +1,63 @@
+package in.co.rays.histogramEx;
+
+import java.io.File;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+
+/**
+ * Servlet implementation class LineChartServlet
+ */
+public class LineChartServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		   final XYSeries firefox = new XYSeries( "python" );
+		      firefox.add( 1.0 , 1.0 );
+		      firefox.add( 2.0 , 4.0 );
+		      firefox.add( 3.0 , 3.0 );
+		      
+		      final XYSeries chrome = new XYSeries( "java" );
+		      chrome.add( 1.0 , 4.0 );
+		      chrome.add( 2.0 , 5.0 );
+		      chrome.add( 3.0 , 6.0 );
+		      
+		      final XYSeries iexplorer = new XYSeries( "C++" );
+		      iexplorer.add( 3.0 , 4.0 );
+		      iexplorer.add( 4.0 , 5.0 );
+		      iexplorer.add( 5.0 , 4.0 );
+		      
+		      final XYSeriesCollection dataset = new XYSeriesCollection( );
+		      dataset.addSeries( firefox );
+		      dataset.addSeries( chrome );
+		      dataset.addSeries( iexplorer );
+
+		      JFreeChart xylineChart = ChartFactory.createXYLineChart(
+		         "Browser usage statastics", 
+		         "Category",
+		         "Score", 
+		         dataset,
+		         PlotOrientation.VERTICAL, 
+		         true, true, false);
+		      
+		      int width = 640;   /* Width of the image */
+		      int height = 480;  /* Height of the image */ 
+		      File XYChart = new File( "E:\\testJfreeChart\\XYLineChart.jpeg" ); 
+		      ChartUtils.saveChartAsJPEG( XYChart, xylineChart, width, height);
+
+		
+	}
+
+
+}
